@@ -1,0 +1,79 @@
+
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<link rel="import" href="./styles/common-styles.html">
+<link rel="import" href="../../bower_components/akc-meta/akc-meta.html">
+<link rel="import" href="./element/unit-activity/unit-activity-constructor.html">
+<link rel="import" href="./element/unit-activity/unit-game-ressource.html">
+<dom-module id="constructor-view">
+    <template>
+        <style include="common-styles">
+        .elem {
+            display: flex;
+            flex-direction: row;
+        }
+        
+        unit-game-ressource {
+            display: inline-flex;
+            flex-direction: column;
+            padding: 10px;
+            margin: 10px;
+        }
+        </style>
+        <akc-meta-query key="media" value={{selectMedia}}></akc-meta-query>
+        <div class="card">
+            <h2>Game unit creator</h2>
+        </div>
+        <div class="card elem">
+            <unit-activity-constructor id="unitGame"></unit-activity-constructor>
+            <unit-game-ressource id="gameResource"></unit-game-ressource>
+        </div>
+    </template>
+    <script>
+    Polymer({
+
+        is: 'constructor-view',
+        ready: function() {
+            this.$.gameResource.addEventListener('addItem',this.addNewItem.bind(this))
+        },
+        addNewItem: function(event) {
+            if (event.detail) {
+                switch (event.detail.itemType) {
+                    case "poi":
+                        this.$.unitGame.addPOI(event.detail.item)
+                        break
+                    case "media":
+                        this.$.unitGame.addMedia(event.detail.item, this.selectMedia)
+                        break
+                    case "freeText":
+                        this.$.unitGame.addFreetext(event.detail.item)
+                        break
+                    case "mcq":
+                        this.$.unitGame.addMcq(event.detail.item)
+                        break
+
+
+                }
+            }
+        },
+        updateMedia: function() {
+            this.$.mediaviewer.updateMedia();
+        },
+        clearList: function() {
+            this.$.uploader.clear();
+        }
+    });
+    </script>
+</dom-module>
