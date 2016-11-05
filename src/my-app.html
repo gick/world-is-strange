@@ -89,7 +89,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <!-- Drawer content -->
             <app-drawer>
                 <login-view></login-view>
-                <a href="/#image">Our Images</a>
+                <template is="dom-if" if="{{status.logged}}">
+                    <paper-button><a href="/#image">Images sharing</a></paper-button>
+                    <paper-button><a href="/#video">Ebook/Media sharing</a></paper-button>
+                </template>
             </app-drawer>
             <!-- Main content -->
             <app-header-layout has-scrolling-region>

@@ -22,6 +22,10 @@
                         <template is="dom-if" if="{{_isVideo(item)}}">
                             <video controls height="150" src="/file/{{item._id}}"></video>
                         </template>
+                        <template is="dom-if" if="{{_isEpub(item)}}">
+                            <div>{{item.filename</div>
+                            <paper-button><a src="/file/{{item._id}}"></a></paper-button>
+                        </template>
                     </div>
                     <div style="border-top: 1px solid lightgrey;" class="myaction card-action">
                         <paper-button on-click='genRequest'>Remove</paper-button>
@@ -60,7 +64,13 @@
                 }
                 return false
             },
+            _isEpub:function(item){
+                if (item.filename.indexOf('epub') >= 0) {
+                    return true;
+                }
+                return false
 
+            },
             properties: {
                 callback: {
                     type: Object,
